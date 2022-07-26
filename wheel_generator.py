@@ -18,10 +18,8 @@ def resizer(input_image):
     img.save(resize_name) #output location can be specified before resize_name
     return 0
 
-def rgb_extractor(img):
-    return extcolors.extract_from_path(img, tolerance = 12, limit = 12)
-
-def color_to_df(colors):
+def color_to_df(img):
+    colors= extcolors.extract_from_path(img, tolerance = 12, limit = 12)
     df= pd.DataFrame(columns= ['hex', 'occurence'])
     for i in range(len(colors[0])):
         df.loc[i]= ['#%02x%02x%02x' % colors[0][i][0], 
@@ -58,8 +56,7 @@ def make_the_wheel(data, img_name):
     return 0
 
 
-input_image='cabo_de_rama_IMG20220314185556_clean.jpg'
+input_image='20220717_094406.jpg'
 resizer(input_image)
-rgb= rgb_extractor('resize_'+input_image)
-df= color_to_df(rgb)
+df= color_to_df('resize_'+input_image)
 make_the_wheel(df, 'resize_'+input_image)
