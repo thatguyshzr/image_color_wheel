@@ -14,12 +14,13 @@ def resizer(input_image):
     img = img.resize((output_width,hsize), Image.ANTIALIAS)
     
     #save
-    resize_name = 'resize_' + input_image  #the resized image name
+    resize_name = input_image.split('.',1)[0] + '_resize.' + input_image.split('.',1)[1]  #the resized image name
     img.save(resize_name) #output location can be specified before resize_name
     return 0
 
 def color_to_df(img):
-    colors= extcolors.extract_from_path(img, tolerance = 12, limit = 12)
+    img_name= img.split('.',1)[0] + '_resize.' + img.split('.',1)[1]
+    colors= extcolors.extract_from_path(img_name, tolerance = 12, limit = 12)
     df= pd.DataFrame(columns= ['hex', 'occurence'])
     for i in range(len(colors[0])):
         df.loc[i]= ['#%02x%02x%02x' % colors[0][i][0], 
@@ -27,7 +28,8 @@ def color_to_df(img):
 
     return df
 
-def make_the_wheel(data, img_name):
+def make_the_wheel(data, img):
+    img_name= img.split('.',1)[0] + '_resize.' + img.split('.',1)[1]
     list_color = list(data['hex'])
     list_percent = [int(i) for i in list(data['occurence'])]
     text_c = [c + ' ' + str(round(p*100/sum(list_percent),1)) 
@@ -52,11 +54,12 @@ def make_the_wheel(data, img_name):
 
     ax.set_aspect("equal")
     fig.set_facecolor('white')
-    plt.savefig('wheel_'+img_name)
+    output_name= img_name.replace('resize','wheel')
+    plt.savefig(output_name)
     return 0
 
 
-input_image='20220717_094406.jpg'
+input_image='assets/egg wearing sunglasses.png'
 resizer(input_image)
-df= color_to_df('resize_'+input_image)
-make_the_wheel(df, 'resize_'+input_image)
+df= color_to_df(input_image)
+make_the_wheel(df, input_image)
