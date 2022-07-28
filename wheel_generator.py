@@ -53,13 +53,13 @@ def make_the_wheel(data, img):
     ax.add_artist(ab)
 
     ax.set_aspect("equal")
-    fig.set_facecolor('white')
-    output_name= img_name.replace('resize','wheel')
-    plt.savefig(output_name)
+    fig.set_facecolor('#e0e0e0')
+    plt.tight_layout()
+    plt.savefig(img_name.replace('resize','wheel'))
     return 0
 
 
-input_image='assets/egg wearing sunglasses.png'
+input_image='assets/james_IMG20220314214227.jpg'
 resizer(input_image)
 df= color_to_df(input_image)
 make_the_wheel(df, input_image)
