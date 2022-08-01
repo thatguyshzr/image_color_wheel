@@ -59,7 +59,7 @@ def make_the_wheel(data, img):
     return 0
 
 
-input_image='assets/james_IMG20220314214227.jpg'
+input_image='assets/hotel.jpg'
 resizer(input_image)
 df= color_to_df(input_image)
 make_the_wheel(df, input_image)
