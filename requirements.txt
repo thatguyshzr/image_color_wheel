@@ -1,0 +1,4 @@
+extcolors==1.0.0
+pandas==1.3.3
+Pillow==8.4.0
+matplotlib==3.4.3
